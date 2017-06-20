@@ -6,6 +6,7 @@ import Data.Monoid
 import Control.Monad
 
 displayStaticHtmlFile = do
+    WS.setHeader "Content-Type" "text/html"
     WS.file "src/UrlToMatch.html"
 
 monkeyUrlTextInput = do
