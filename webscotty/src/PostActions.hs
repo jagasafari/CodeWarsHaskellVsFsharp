@@ -7,7 +7,8 @@ import Data.Aeson
 
 simulateFailure :: WS.ActionM ()
 simulateFailure = do
-    error "simulated error"
+    name <- WS.param "name" `WS.rescue` (const WS.next)
+    WS.text name
 
 handleSimulatedFailure :: WS.ActionM ()
 handleSimulatedFailure = do
