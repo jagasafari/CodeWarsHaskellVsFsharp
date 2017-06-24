@@ -11,12 +11,12 @@ displayStaticHtmlFile = do
 
 monkeyUrlTextInput = do
     name <- WS.param "name"
-    WS.text $ "monkey input: " <>  name
+    WS.text $ mconcat ["monkey input: ", name]
 
 jumpToNextAction = do
     enteredUrl <- WS.param "next"
     when (enteredUrl == "next") WS.next
-    WS.text $ "entered url : /" <> enteredUrl
+    WS.text $ mconcat ["entered url : /", enteredUrl]
 
 regexCapture = do
     path <- WS.param "0"

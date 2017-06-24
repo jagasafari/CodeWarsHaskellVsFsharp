@@ -14,3 +14,7 @@ handleSimulatedFailure :: WS.ActionM ()
 handleSimulatedFailure = do
     WS.json $ object [ "error" .= ("Invalid request"::String) ]
     WS.status badRequest400
+
+deserializingJsonData = do 
+    [dat, sec] <- WS.jsonData :: WS.ActionM [String]
+    WS.status status204
