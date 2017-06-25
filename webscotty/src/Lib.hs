@@ -1,7 +1,9 @@
 {-# LANGUAGE OverloadedStrings #-}
 module Lib
     ( someFunc
+    , module Serializings
     ) where
+import Serializings
 import qualified Web.Scotty as WS 
 import qualified Data.Text.Lazy as TL (pack)
 import qualified Network.Wai as NW
