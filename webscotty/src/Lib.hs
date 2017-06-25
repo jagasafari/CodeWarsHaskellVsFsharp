@@ -15,6 +15,7 @@ routes = do
     WS.post "/deserializingJsonData" deserializingJsonData 
     WS.get "/" displayStaticHtmlFile
     WS.get "/text/:name" monkeyUrlTextInput
+    WS.get "/getUsers" getUsers
     WS.get "/:next" jumpToNextAction
     WS.get (WS.regex "^/f(.*)r$") regexCapture
     WS.get "/:append/:remove" twoInputs

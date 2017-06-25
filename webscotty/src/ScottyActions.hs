@@ -4,7 +4,10 @@ module ScottyActions where
 import qualified Web.Scotty as WS 
 import Data.Monoid 
 import Control.Monad
+import Serializings
 
+getUsers = do
+   WS.json $ nBobUsers 6 
 displayStaticHtmlFile = do
     WS.setHeader "Content-Type" "text/html"
     WS.file "src/UrlToMatch.html"
