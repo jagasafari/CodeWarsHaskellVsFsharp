@@ -2,8 +2,8 @@
 module PostActions where
 
 import qualified Web.Scotty as WS 
-import Network.HTTP.Types.Status
 import Data.Aeson
+import Network.HTTP.Types.Status
 
 simulateFailure :: WS.ActionM ()
 simulateFailure = do
@@ -15,6 +15,4 @@ handleSimulatedFailure = do
     WS.json $ object [ "error" .= ("Invalid request"::String) ]
     WS.status badRequest400
 
-deserializingJsonData = do 
-    [dat, sec] <- WS.jsonData :: WS.ActionM [String]
-    WS.status status204
+

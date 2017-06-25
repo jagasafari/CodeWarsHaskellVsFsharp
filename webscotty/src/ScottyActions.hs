@@ -5,9 +5,15 @@ import qualified Web.Scotty as WS
 import Data.Monoid 
 import Control.Monad
 import Serializings
+import Network.HTTP.Types.Status
+
+deserializingJsonData = do 
+    [dat, sec] <- WS.jsonData :: WS.ActionM [String]
+    WS.status status204
 
 getUsers = do
-   WS.json $ nBobUsers 6 
+   WS.json $ nUsers 6 
+
 displayStaticHtmlFile = do
     WS.setHeader "Content-Type" "text/html"
     WS.file "src/UrlToMatch.html"

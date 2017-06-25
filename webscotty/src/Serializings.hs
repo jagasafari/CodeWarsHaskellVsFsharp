@@ -15,4 +15,4 @@ getRandomX (x,y) = r
     where g = mkStdGen 77
           (r:rs) = randomRs (x,y) g
 nBobUsers n = replicate n $ User { userId = 7777777, name = "bob" }
-
+nUsers n = map (\x -> User { userId = x, name = "bob" }) $ take n $ randomRs (1, 100) (mkStdGen 876)
