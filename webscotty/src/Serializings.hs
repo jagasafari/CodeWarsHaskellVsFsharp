@@ -1,6 +1,7 @@
 {-# LANGUAGE DeriveGeneric #-}
 module Serializings where
 
+import System.Random
 import Data.Aeson
 import GHC.Generics
 
@@ -9,5 +10,9 @@ data User = User { userId :: Int, name :: String } deriving (Show, Generic)
 instance ToJSON User
 instance FromJSON User
 
-nBobUsers n = replicate n $ User { userId = 98, name = "bob" }
+getRandomX :: (Int,Int) -> Int
+getRandomX (x,y) = r
+    where g = mkStdGen 77
+          (r:rs) = randomRs (x,y) g
+nBobUsers n = replicate n $ User { userId = 7777777, name = "bob" }
 
