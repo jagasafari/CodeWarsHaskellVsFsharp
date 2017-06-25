@@ -1,9 +1,13 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE DeriveGeneric #-}
 module ScottyActions where
 
 import qualified Web.Scotty as WS 
 import Data.Monoid 
 import Control.Monad
+import GHC.Generics
+
+data User = User { userId :: Int, name :: String } deriving (Show, Generic)
 
 displayStaticHtmlFile = do
     WS.setHeader "Content-Type" "text/html"
@@ -33,3 +37,4 @@ redirectToGoogle = do
 
 simulateErrorEndRescue = do
     WS.raise "simulate error" `WS.rescue` \er -> WS.text er
+
