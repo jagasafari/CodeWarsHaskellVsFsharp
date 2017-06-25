@@ -1,19 +1,9 @@
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE DeriveGeneric #-}
 module ScottyActions where
 
 import qualified Web.Scotty as WS 
 import Data.Monoid 
 import Control.Monad
-import Data.Aeson
-import GHC.Generics
-
-data User = User { userId :: Int, name :: String } deriving (Show, Generic)
-
-instance ToJSON User
-instance FromJSON User
-
-nBobUsers n = replicate n $ User { userId = 98, name = "bob" }
 
 displayStaticHtmlFile = do
     WS.setHeader "Content-Type" "text/html"
