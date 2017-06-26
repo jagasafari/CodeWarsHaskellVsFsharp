@@ -10,7 +10,8 @@ import System.Directory
 import Control.Monad.IO.Class
 
 currentDir = do 
-    content <- liftIO $ getDirectoryContents "."
+    currentDir <- liftIO getCurrentDirectory
+    content <- liftIO $ getDirectoryContents currentDir
     json content
 
 getUsers = do
