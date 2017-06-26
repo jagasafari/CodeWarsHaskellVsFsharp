@@ -7,12 +7,12 @@ import Control.Monad
 import Serializings
 import Network.HTTP.Types.Status
 
-deserializingJsonData = do 
-    [dat, sec] <- WS.jsonData :: WS.ActionM [String]
-    WS.status status204
-
 getUsers = do
    WS.json $ nUsers 6 
+
+getUsersId = do
+    id <- WS.param "id"
+    WS.json $ (filter (\user -> userId user < id) $ nUsers 69)
 
 displayStaticHtmlFile = do
     WS.setHeader "Content-Type" "text/html"
@@ -42,4 +42,3 @@ redirectToGoogle = do
 
 simulateErrorEndRescue = do
     WS.raise "simulate error" `WS.rescue` \er -> WS.text er
-

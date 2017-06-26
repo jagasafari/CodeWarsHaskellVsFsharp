@@ -16,6 +16,7 @@ routes = do
     WS.get "/" displayStaticHtmlFile
     WS.get "/text/:name" monkeyUrlTextInput
     WS.get "/getUsers" getUsers
+    WS.get "/getUsers/:id" getUsersId
     WS.get "/:next" jumpToNextAction
     WS.get (WS.regex "^/f(.*)r$") regexCapture
     WS.get "/:append/:remove" twoInputs
