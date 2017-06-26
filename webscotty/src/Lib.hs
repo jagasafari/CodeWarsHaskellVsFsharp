@@ -14,8 +14,9 @@ routes = do
     WS.post "/simulateFailure" handleSimulatedFailure
     WS.post "/deserializingJsonData" deserializingJsonData 
     WS.get "/" displayStaticHtmlFile
-    WS.get "/text/:name" monkeyUrlTextInput
     WS.get "/getUsers" getUsers
+    WS.get "/currentDir" currentDir
+    WS.get "/text/:name" monkeyUrlTextInput
     WS.get "/getUsers/:id" getUsersId
     WS.get "/:next" jumpToNextAction
     WS.get (WS.regex "^/f(.*)r$") regexCapture
