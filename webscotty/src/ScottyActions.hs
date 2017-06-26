@@ -12,7 +12,7 @@ import Control.Monad.IO.Class
 currentDir = do 
     currentDir <- liftIO getCurrentDirectory
     content <- liftIO $ getDirectoryContents currentDir
-    json content
+    json $ filter (not . (`elem` [".", ".."])) content
 
 getUsers = do
    json $ nUsers 6 
