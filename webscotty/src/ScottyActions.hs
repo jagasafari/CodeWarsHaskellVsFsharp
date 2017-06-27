@@ -9,13 +9,15 @@ import Network.HTTP.Types.Status
 import System.Directory
 import Control.Monad.IO.Class
 import System.FilePath
+import Data.Text.Lazy (pack)
 filterDirContent = filter (not . (`elem` [".", ".."]))
 currentDirContents = getCurrentDirectory >>= getDirectoryContents
 
 existsDirContent = do 
     currDir <- liftIO getCurrentDirectory
-    let scp = joinPath [currDir, "Setup.hs"]
-    text "not implemented yet" 
+    fileExist <- liftIO $ doesFileExist $ joinPath [currDir, "Setup.hs"]
+    text $ pack $ show fileExist
+
 currentDir = do 
     content <- liftIO currentDirContents
     json $ filterDirContent content
