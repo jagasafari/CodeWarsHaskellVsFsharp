@@ -4,27 +4,28 @@ module Lib
     , module Serializings
     ) where
 import Serializings
-import qualified Web.Scotty as WS 
+import Web.Scotty
 import qualified Data.Text.Lazy as TL (pack)
 import qualified Network.Wai as NW
 import ScottyActions
 import PostActions
 routes = do
-    WS.post "/simulateFailure" simulateFailure
-    WS.post "/simulateFailure" handleSimulatedFailure
-    WS.post "/deserializingJsonData" deserializingJsonData 
-    WS.get "/" displayStaticHtmlFile
-    WS.get "/getUsers" getUsers
-    WS.get "/currentDir" currentDir
-    WS.get "/text/:name" monkeyUrlTextInput
-    WS.get "/getUsers/:id" getUsersId
-    WS.get "/:next" jumpToNextAction
-    WS.get (WS.regex "^/f(.*)r$") regexCapture
-    WS.get "/:append/:remove" twoInputs
-    WS.get "/redirect" redirectToGoogle
-    WS.get "/rescue" simulateErrorEndRescue
-    WS.get (WS.function $ \req -> Just [("version", TL.pack $ show $ NW.httpVersion req)]) $ do
-        v <- WS.param "version"
-        WS.text v
+    post "/simulateFailure" simulateFailure
+    post "/simulateFailure" handleSimulatedFailure
+    post "/deserializingJsonData" deserializingJsonData 
+    get "/" displayStaticHtmlFile
+    get "/getUsers" getUsers
+    get "/currentDir" currentDir
+    get "/existsDirContent/:searchedContent" existsDirContent
+    get "/text/:name" monkeyUrlTextInput
+    get "/getUsers/:id" getUsersId
+    get "/:next" jumpToNextAction
+    get (regex "^/f(.*)r$") regexCapture
+    get "/:append/:remove" twoInputs
+    get "/redirect" redirectToGoogle
+    get "/rescue" simulateErrorEndRescue
+    get (function $ \req -> Just [("version", TL.pack $ show $ NW.httpVersion req)]) $ do
+        v <- param "version"
+        text v
 someFunc :: IO ()
-someFunc = WS.scotty 3000 $ routes
+someFunc = scotty 3000 $ routes

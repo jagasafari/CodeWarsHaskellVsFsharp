@@ -8,11 +8,17 @@ import Serializings
 import Network.HTTP.Types.Status
 import System.Directory
 import Control.Monad.IO.Class
+import System.FilePath
+filterDirContent = filter (not . (`elem` [".", ".."]))
+currentDirContents = getCurrentDirectory >>= getDirectoryContents
 
+existsDirContent = do 
+    currDir <- liftIO getCurrentDirectory
+    let scp = joinPath [currDir, "Setup.hs"]
+    text "not implemented yet" 
 currentDir = do 
-    currentDir <- liftIO getCurrentDirectory
-    content <- liftIO $ getDirectoryContents currentDir
-    json $ filter (not . (`elem` [".", ".."])) content
+    content <- liftIO currentDirContents
+    json $ filterDirContent content
 
 getUsers = do
    json $ nUsers 6 
