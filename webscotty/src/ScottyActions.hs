@@ -23,6 +23,10 @@ currentDir = do
     content <- liftIO currentDirContents
     json $ filterDirContent content
 
+ioworkflow = do
+    let createTmpDirLabel = "create tmp dir"
+    let foundTmpDirLabel = "create tmp dir"
+    text $ mconcat ["server dir content","\n",foundTmpDirLabel, "\n",createTmpDirLabel,"\n",foundTmpDirLabel, "\n","remove tmp dir", "\n", foundTmpDirLabel, "\n", createTmpDirLabel, "\n", "createFile", "\n", "random nubers append", "\n", "display file content", "\n", "remove file"]
 getUsers = do
    json $ nUsers 6 
 

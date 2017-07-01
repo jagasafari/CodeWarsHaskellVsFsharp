@@ -16,6 +16,7 @@ routes = do
     get "/" displayStaticHtmlFile
     get "/getUsers" getUsers
     get "/currentDir" currentDir
+    get "/ioworkflow" ioworkflow
     get "/existsDirContent/:searchedContent" existsDirContent
     get "/text/:name" monkeyUrlTextInput
     get "/getUsers/:id" getUsersId
