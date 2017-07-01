@@ -14,8 +14,9 @@ filterDirContent = filter (not . (`elem` [".", ".."]))
 currentDirContents = getCurrentDirectory >>= getDirectoryContents
 
 existsDirContent = do 
+    searchedContent <- param "searchedContent"
     currDir <- liftIO getCurrentDirectory
-    fileExist <- liftIO $ doesFileExist $ joinPath [currDir, "Setup.hs"]
+    fileExist <- liftIO $ doesFileExist $ joinPath [currDir, searchedContent]
     text $ pack $ show fileExist
 
 currentDir = do 
