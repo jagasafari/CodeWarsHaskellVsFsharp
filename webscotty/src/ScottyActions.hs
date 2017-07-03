@@ -26,7 +26,21 @@ currentDir = do
 ioworkflow = do
     let createTmpDirLabel = "create tmp dir"
     let foundTmpDirLabel = "create tmp dir"
-    text $ mconcat ["server dir content","\n",foundTmpDirLabel, "\n",createTmpDirLabel,"\n",foundTmpDirLabel, "\n","remove tmp dir", "\n", foundTmpDirLabel, "\n", createTmpDirLabel, "\n", "createFile", "\n", "random nubers append", "\n", "display file content", "\n", "remove file"]
+    let done = ""
+    let workflow = 
+                [("server dir content",done)
+                ,(foundTmpDirLabel,done)
+                ,(createTmpDirLabel,done)
+                ,(foundTmpDirLabel,done)
+                ,("remove tmp dir",done)
+                ,(foundTmpDirLabel,done)
+                ,(createTmpDirLabel,done)
+                ,("createFile",done)
+                ,("random numbers append",done)
+                ,("display file content",done)
+                ,("remove file",done)]
+    text $ mconcat $ workflow >>= \(x, y) -> [x, ":", y, "\n"]
+
 getUsers = do
    json $ nUsers 6 
 
