@@ -7,15 +7,12 @@ import ExploringIO
 import Control.Monad
 import Serializings
 import Network.HTTP.Types.Status
-import System.Directory
 import Control.Monad.IO.Class
-import System.FilePath
 import Data.Text.Lazy (pack)
 
 existsDirContent = do 
     searchedContent <- param "searchedContent"
-    currDir <- liftIO getCurrentDirectory
-    fileExist <- liftIO $ doesFileExist $ joinPath [currDir, searchedContent]
+    fileExist <- doesFileExistCurrentDir searchedContent 
     text $ pack $ show fileExist
 
 currentDir = do 

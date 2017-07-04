@@ -1,8 +1,14 @@
 module ExploringIO where
 
+import Control.Monad.IO.Class
 import System.Directory
 import System.FilePath
 
+doesFileExistCurrentDir searchedContent = do 
+    currDir <- liftIO getCurrentDirectory
+    liftIO $ doesFileExist $ joinPath [currDir, searchedContent]
+
+ 
 filterDirContent = 
     filter (not . (`elem` [".", ".."]))
 
