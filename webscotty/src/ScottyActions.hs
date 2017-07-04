@@ -3,6 +3,7 @@ module ScottyActions where
 
 import Web.Scotty
 import Data.Monoid 
+import ExploringIO
 import Control.Monad
 import Serializings
 import Network.HTTP.Types.Status
@@ -10,8 +11,6 @@ import System.Directory
 import Control.Monad.IO.Class
 import System.FilePath
 import Data.Text.Lazy (pack)
-filterDirContent = filter (not . (`elem` [".", ".."]))
-currentDirContents = getCurrentDirectory >>= getDirectoryContents
 
 existsDirContent = do 
     searchedContent <- param "searchedContent"
@@ -24,22 +23,7 @@ currentDir = do
     json $ filterDirContent content
 
 ioworkflow = do
-    let createTmpDirLabel = "create tmp dir"
-    let foundTmpDirLabel = "create tmp dir"
-    let done = ""
-    let workflow = 
-                [("server dir content",done)
-                ,(foundTmpDirLabel,done)
-                ,(createTmpDirLabel,done)
-                ,(foundTmpDirLabel,done)
-                ,("remove tmp dir",done)
-                ,(foundTmpDirLabel,done)
-                ,(createTmpDirLabel,done)
-                ,("createFile",done)
-                ,("random numbers append",done)
-                ,("display file content",done)
-                ,("remove file",done)]
-    text $ mconcat $ workflow >>= \(x, y) -> [x, ":", y, "\n"]
+    text $ mconcat $ map pack runWorkflow
 
 getUsers = do
    json $ nUsers 6 

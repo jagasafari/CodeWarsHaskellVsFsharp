@@ -9,7 +9,7 @@ cabal-version:       >=1.10
 
 library
   hs-source-dirs:      src
-  exposed-modules:     Lib, ScottyActions, PostActions, Serializings
+  exposed-modules:     Lib, ScottyActions, PostActions, Serializings, ExploringIO
   build-depends:       base >= 4.7 && < 5, scotty, text, wai, http-types, aeson, random, directory, transformers, filepath
   default-language:    Haskell2010
 
