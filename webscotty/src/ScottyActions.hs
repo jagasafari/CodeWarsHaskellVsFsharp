@@ -16,8 +16,8 @@ existsDirContent = do
     text $ pack $ show fileExist
 
 currentDir = do 
-    content <- liftIO currentDirContents
-    json $ filterDirContent content
+    content <- liftIO currentDirContentFiltered 
+    json content
 
 ioworkflow = do
     text $ mconcat $ map pack runWorkflow
