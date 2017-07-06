@@ -9,6 +9,7 @@ import qualified Data.Text.Lazy as TL (pack)
 import qualified Network.Wai as NW
 import ScottyActions
 import PostActions
+routes :: ScottyM ()
 routes = do
     post "/simulateFailure" simulateFailure
     post "/simulateFailure" handleSimulatedFailure
