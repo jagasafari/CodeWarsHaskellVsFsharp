@@ -1,3 +1,4 @@
+{-# LANGUAGE OverloadedStrings #-}
 module ExploringIO where
 
 import Control.Monad
@@ -5,18 +6,22 @@ import Control.Monad.IO.Class
 import System.Directory
 import System.FilePath
 
+doesFileExistCurrentDir :: FilePath -> IO Bool
 doesFileExistCurrentDir searchedContent = do 
-    currDir <- liftIO getCurrentDirectory
-    liftIO $ doesFileExist $ joinPath [currDir, searchedContent]
+    currDir <- getCurrentDirectory
+    doesFileExist $ joinPath [currDir, searchedContent]
  
+currentDirContentFiltered :: IO [FilePath]
 currentDirContentFiltered = 
     liftM filterDirContent currentDirContent
     where
         filterDirContent = filter (not . (`elem` [".", ".."]))
         currentDirContent = getCurrentDirectory >>= getDirectoryContents 
 
-runWorkflow = 
-    workflow >>= \(x, y) -> [x, ":", y, "\n"] where
+runWorkflow :: IO [String]
+runWorkflow = do 
+    currDir <- currentDirContentFiltered 
+    return $ workflow >>= \(x, y) -> [x, ":", y, "\n"] where
     createTmpDirLabel = "create tmp dir"
     foundTmpDirLabel = "create tmp dir"
     done = ""

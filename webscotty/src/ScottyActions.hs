@@ -12,7 +12,7 @@ import Data.Text.Lazy (pack)
 
 existsDirContent = do 
     searchedContent <- param "searchedContent"
-    fileExist <- doesFileExistCurrentDir searchedContent 
+    fileExist <- liftIO $ doesFileExistCurrentDir searchedContent 
     text $ pack $ show fileExist
 
 currentDir = do 
@@ -20,7 +20,8 @@ currentDir = do
     json content
 
 ioworkflow = do
-    text $ mconcat $ map pack runWorkflow
+    workflow <- liftIO runWorkflow
+    text $ mconcat $ map pack workflow
 
 getUsers = do
    json $ nUsers 6 
