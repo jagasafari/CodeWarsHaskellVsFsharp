@@ -8,11 +8,12 @@ b :: IO (Either [Char] b)
 b = return a
 c = EitherIO b
 d = EitherIO $ return $ Left "l"
-e = EitherIO . return . Left
+eitherIOLeft = EitherIO . return . Left
+eitherIORight = EitherIO . return . Right
 
 instance Functor (EitherIO a) where
-    fmap f ex = wrapped 
-        where
-        unwrapped = runEitherIO ex
-        fmapped = fmap (fmap f) unwrapped
-        wrapped = EitherIO fmapped
+    fmap f = EitherIO . fmap (fmap f) . runEitherIO 
+
+myMap = fmap (const 5) 
+leftEitherIO = myMap . eitherIOLeft $ "gfhji"     
+
