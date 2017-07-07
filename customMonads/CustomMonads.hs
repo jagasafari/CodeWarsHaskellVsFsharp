@@ -16,4 +16,8 @@ instance Functor (EitherIO a) where
 
 myMap = fmap (const 5) 
 leftEitherIO = myMap . eitherIOLeft $ "gfhji"     
-
+oneLineMapped::EitherIO [Char] Integer
+oneLineMapped = fmap (const 5) (eitherIOLeft "fhjo")
+oneLineMappedInt = fmap (const 5) (eitherIOLeft 89)
+unwrappedMapped = runEitherIO oneLineMappedInt 
+op = eitherIOLeft <$> "dfggds"
