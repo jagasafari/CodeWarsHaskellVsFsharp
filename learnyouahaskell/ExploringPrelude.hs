@@ -16,7 +16,11 @@ alfpabet = ['A'..'z']
 rangeBy = [5,7..25]
 rnageByInfinite = take 12 [89,120..]
 infiniteCycle = take 2 $ cycle [1,2,3]
-reapet4 = take 4 $ repeat 9
+repeat4 = take 4 $ repeat 9
 replicate30 = replicate 4 30
 listComprehension = [2*x|x<-[6,8..90]]
 listComprehensionCondition = [2*x|x<-[6,8..90],x `mod` 7 == 3 ]
+notEqual = x /= 13 where x = 6
+multipleListsCombination = [x+y|x<-[1,2,3],y<-6 `replicate` 1]
+combinationLength = length multipleListsCombination == 3*6
+
