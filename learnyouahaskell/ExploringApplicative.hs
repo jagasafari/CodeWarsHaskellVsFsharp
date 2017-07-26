@@ -15,3 +15,5 @@ twoArgumentsStartingFunctionNothingAsLastArgument =
     pure (*) <*> pure 9 <*> Nothing
 twoArgumentsStartingFunctionNothingAsFirstArgument = 
     pure (*) <*> Nothing <*> pure 7
+(<.$>) :: (Functor f) => (a -> b) -> f a -> f b
+f <.$> x = fmap f x
