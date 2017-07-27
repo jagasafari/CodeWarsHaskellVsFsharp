@@ -17,3 +17,9 @@ twoArgumentsStartingFunctionNothingAsFirstArgument =
     pure (*) <*> Nothing <*> pure 7
 (<.$>) :: (Functor f) => (a -> b) -> f a -> f b
 f <.$> x = fmap f x
+chainedApplicativeExample = (++) <$> Just "hallo " <*> Just "world"
+instesdOfListComprehension = filter (>50) $ (*) <$> [6,9,7] <*> [9,7,8]
+insteadOfApplicative = [ x*y | x <- [7,9,0], y <- [9,7,6]]
+nonDeterministicAllCombinations = [(*),(+)] <*> [8,9,0,0] <*> [9,8,7]
+pureTypeString = pure "cghj" :: [String]
+pureTypeMaybe = pure "ghj" :: Maybe String
