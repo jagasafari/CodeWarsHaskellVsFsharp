@@ -23,3 +23,6 @@ insteadOfApplicative = [ x*y | x <- [7,9,0], y <- [9,7,6]]
 nonDeterministicAllCombinations = [(*),(+)] <*> [8,9,0,0] <*> [9,8,7]
 pureTypeString = pure "cghj" :: [String]
 pureTypeMaybe = pure "ghj" :: Maybe String
+--instance Aplicative [] where
+--    pure x = [x]
+--    fs <*> xs = [ f x | f <- fs, x <- xs]
