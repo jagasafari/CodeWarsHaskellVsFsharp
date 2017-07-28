@@ -1,4 +1,5 @@
 module ExploringApplicative where
+import Control.Applicative
 
 class (Functor f) => MyApplicative f where
     myPure :: a -> f a
@@ -43,3 +44,6 @@ functionAsFunctorAndApplicativeExample =
     (+) <$> (+3) <*> (*100) $ 5
 functionAsFunctorAndApplicativeExampleList =
     (\x y z -> [x, y, z]) <$> (+3) <*> (*5) <*> (/2) $ 5
+--instance Applicative ZipList where
+--    pure x = ZipList $ repeat x
+--    ZipList fs <*> ZipList xs = ZipList $ zipWith (\f x -> f x) fs xs
