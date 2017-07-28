@@ -39,3 +39,7 @@ pureTypeMaybe = pure "ghj" :: Maybe String
 --instance Applicative ((->) r) where
 --    pure x = \_ -> x
 --    f <*> g = \x -> f x $ g x
+functionAsFunctorAndApplicativeExample =
+    (+) <$> (+3) <*> (*100) $ 5
+functionAsFunctorAndApplicativeExampleList =
+    (\x y z -> [x, y, z]) <$> (+3) <*> (*5) <*> (/2) $ 5
