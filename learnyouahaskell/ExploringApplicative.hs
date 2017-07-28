@@ -26,3 +26,16 @@ pureTypeMaybe = pure "ghj" :: Maybe String
 --instance Aplicative [] where
 --    pure x = [x]
 --    fs <*> xs = [ f x | f <- fs, x <- xs]
+--instance Applicative IO where
+--    pure = return
+--    fIO <*> xIO = do
+--        f <- fIO
+--        x <- xIO
+--        return $ f x
+--instance Functor ((->) r) where
+--    fmap f g = \x -> f $ g x
+--instance Functor ((->) r) where
+--    fmap f g = (.)
+--instance Applicative ((->) r) where
+--    pure x = \_ -> x
+--    f <*> g = \x -> f x $ g x
