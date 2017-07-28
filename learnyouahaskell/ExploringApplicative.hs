@@ -47,3 +47,9 @@ functionAsFunctorAndApplicativeExampleList =
 --instance Applicative ZipList where
 --    pure x = ZipList $ repeat x
 --    ZipList fs <*> ZipList xs = ZipList $ zipWith (\f x -> f x) fs xs
+zipWithApplicativeExample = 
+    getZipList $ max <$> ZipList [9,8,0] <*> ZipList [9,9..]
+
+zipListApplicativeExampleTupleConstructor = 
+    getZipList $ (,,) <$> ZipList [8,9..] <*> ZipList [8,9,0] <*> ZipList [9,0,8,9]
+    
