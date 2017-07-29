@@ -110,3 +110,12 @@ instance Monoid MyAny where
 emptyValuesAny = getAny $ mempty `mappend` mempty
 multipleAnyChained = getAny $ Any True `mappend` Any False `mappend` Any True
 listOfAny = getAny . mconcat . map Any $ [True, False, False, False]
+
+newtype MyAll = MyAll { getMyAll :: Bool } 
+    deriving (Eq, Ord, Show, Read, Bounded)
+instance Monoid MyAll where
+    mempty = MyAll True
+    MyAll a `mappend` MyAll b = MyAll (a && b)
+allBothEmpty = getAll $ mempty `mappend` mempty
+allOnList = getAll . mconcat . map All $ [True, True, True]
+oneOfAllFalse = getAll $ All True `mappend` All False
