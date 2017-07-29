@@ -150,3 +150,16 @@ instance F.Foldable Tree where
     foldMap f (Node x l r) = F.foldMap f l `mappend`
                              f x `mappend`
                              F.foldMap f r
+
+testTree =
+    Node 5
+        (Node 3 
+            (Node 5 Empty Empty)
+            (Node 2 Empty Empty))
+        (Node 1 
+            (Node 9 Empty Empty)
+            (Node 1 Empty Empty))
+foldSumTree = F.foldl (+) 0 testTree
+foldProductTree = F.foldr1 (*) testTree
+foldAny = getAny $ F.foldMap (\x -> Any $ x == 3) testTree
+foldToList = F.foldMap (\x -> [x]) testTree
