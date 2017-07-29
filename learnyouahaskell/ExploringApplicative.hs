@@ -132,3 +132,7 @@ lengthCompareWithMonoid s1 s2 =
 --    EQ `mappend` y = y
 --    LT `mappend` _ = LT
 --    GT `mappend` _ = GT
+twoEmptyOrdering :: Ordering
+twoEmptyOrdering = mempty `mappend` mempty
+firstGt = GT `mappend` LT
+listOfOrdering = mconcat [EQ, EQ, LT]
