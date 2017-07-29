@@ -141,4 +141,4 @@ listOfOrdering = mconcat [EQ, EQ, LT]
 --    Nothing `mappend` m = m
 --    m `mappend` Nothing = m
 --    Just a `mappend` Just b = Just $ a `mappend` b
-
+data Tree a = Empty | Node a (Tree a) (Tree a)
