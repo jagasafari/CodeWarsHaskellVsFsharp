@@ -84,5 +84,9 @@ class MyMonoid m where
     myMconcat :: [m] -> m
     myMconcat = foldr myMappend myMempty
 
+instance MyMonoid [a] where
+    myMempty = []
+    myMappend = (++)
+    
 
 
