@@ -76,7 +76,13 @@ newtype Pair b a = Pair { getTuple :: (a, b) }
 instance Functor (Pair c) where
     fmap f (Pair (a,b)) = Pair (f a, b)
 mapOverFstExample = getTuple $ fmap (*100) $ Pair (2, 100)
-mapOverFstExample2 = getTuple $ fmap reverse $ Pair ("ghko", 9)
+mapOverFstExample2 = fmap reverse $ Pair ("ghko", 9)
+
+class MyMonoid m where
+    myMempty :: m
+    myMappend :: m -> m -> m
+    myMconcat :: [m] -> m
+    myMconcat = foldr myMappend myMempty
 
 
 
