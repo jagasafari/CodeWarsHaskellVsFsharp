@@ -125,3 +125,10 @@ lengthCompare s1 s2 =
     let a = length s1 `compare` length s2
         b = s1 `compare` s2
     in if a == EQ then b else a
+lengthCompareWithMonoid s1 s2 =
+    (length s1 `compare` length s2) `mappend` (s1 `compare` s2)
+--instance Monoid Ordering where
+--    mempty = EQ
+--    EQ `mappend` y = y
+--    LT `mappend` _ = LT
+--    GT `mappend` _ = GT
