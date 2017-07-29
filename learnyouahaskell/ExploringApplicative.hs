@@ -72,6 +72,11 @@ sequenceANestedArrays = sequenceA [[9,0,8],[9,0,5]]
 
 newtype MyZipListNewtype a = MyZipListNewtype { getMyZipList :: [a] }
 newtype MyCharList = MyCharList { getCharList :: [Char]} deriving (Eq, Show)
+newtype Pair b a = Pair { getTuple :: (a, b) }
+instance Functor (Pair c) where
+    fmap f (Pair (a,b)) = Pair (f a, b)
+mapOverFstExample = getTuple $ fmap (*100) $ Pair (2, 100)
+mapOverFstExample2 = getTuple $ fmap reverse $ Pair ("ghko", 9)
 
 
 
