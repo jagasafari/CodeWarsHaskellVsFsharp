@@ -119,3 +119,9 @@ instance Monoid MyAll where
 allBothEmpty = getAll $ mempty `mappend` mempty
 allOnList = getAll . mconcat . map All $ [True, True, True]
 oneOfAllFalse = getAll $ All True `mappend` All False
+
+lengthCompare :: String -> String -> Ordering
+lengthCompare s1 s2 =
+    let a = length s1 `compare` length s2
+        b = s1 `compare` s2
+    in if a == EQ then b else a
