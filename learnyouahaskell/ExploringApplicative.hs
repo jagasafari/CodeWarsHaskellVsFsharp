@@ -101,8 +101,12 @@ multIdentity = getProduct $ Product 3 `mappend` mempty
 multThreeNums = getProduct $ Product 5 `mappend` Product 8 `mappend` Product 2
 multListOfNums = getProduct . mconcat . map  Product $ [8,9,7,6]
 
-newtype MyAny = MyAny { getAny :: Bool }
+newtype MyAny = MyAny { getMyAny :: Bool }
     deriving (Eq, Ord, Show, Read, Bounded)
 instance Monoid MyAny where
     mempty = MyAny False
     MyAny a `mappend` MyAny b = MyAny (a || b)
+
+emptyValuesAny = getAny $ mempty `mappend` mempty
+multipleAnyChained = getAny $ Any True `mappend` Any False `mappend` Any True
+listOfAny = getAny . mconcat . map Any $ [True, False, False, False]
