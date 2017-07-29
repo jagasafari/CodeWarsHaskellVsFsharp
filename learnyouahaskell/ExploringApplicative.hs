@@ -1,4 +1,5 @@
 module ExploringApplicative where
+import Data.Monoid
 import Control.Applicative
 
 class (Functor f) => MyApplicative f where
@@ -89,9 +90,15 @@ instance MyMonoid [a] where
     myMappend = (++)
     
 newtype MyProduct a = MyProduct { getNum :: a }
+    deriving (Show, Read, Eq, Ord, Bounded)
 
-instance (Num a) => MyMonoid (MyProduct a) where
+instance Num a => MyMonoid (MyProduct a) where
     myMempty = MyProduct 1
-    (MyProduct a) `myMappend` (MyProduct b) = MyProduct (a * b)
+    MyProduct a `myMappend` MyProduct b = MyProduct (a * b)
+
+multTwoNum = getProduct $ Product 3 `mappend` Product 7 
+multIdentity = getProduct $ Product 3 `mappend` mempty
+multThreeNums = getProduct $ Product 5 `mappend` Product 8 `mappend` Product 2
+multListOfNums = getProduct . mconcat . map  Product $ [8,9,7,6]
     
 
