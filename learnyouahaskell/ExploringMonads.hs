@@ -8,14 +8,17 @@ bothJust = (Just 6) `applyMaybe` (\x -> Just (+8))
 withNothing = Nothing `applyMaybe` (\x -> Just (++ ":)"))
 
 class MyMonad m where
-    return :: a -> m a
+    myReturn :: a -> m a
     (.>>=) :: m a -> (a -> m b) -> m b
     (.>>) :: m a -> m b -> m b
     x .>> y = x .>>= (\_ -> y)
     fail :: String -> m a
     fail msg = error msg
 instance MyMonad Maybe where
-    return x = Just x
+    myReturn x = Just x
     Nothing .>>= f = Nothing
     Just x .>>= f = f x
     fail _ = Nothing
+returnMonadExample = return 9 :: Maybe Int
+monadMaybe = (Just 5) >>= (\x -> return (x * 9))
+monadMaybeNothing = Nothing >>= (\x -> return (x * 0))
