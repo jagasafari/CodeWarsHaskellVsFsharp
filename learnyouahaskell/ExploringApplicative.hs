@@ -88,5 +88,10 @@ instance MyMonoid [a] where
     myMempty = []
     myMappend = (++)
     
+newtype MyProduct a = MyProduct { getNum :: a }
 
+instance (Num a) => MyMonoid (MyProduct a) where
+    myMempty = MyProduct 1
+    (MyProduct a) `myMappend` (MyProduct b) = MyProduct (a * b)
+    
 
