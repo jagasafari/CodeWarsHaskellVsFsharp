@@ -136,3 +136,9 @@ twoEmptyOrdering :: Ordering
 twoEmptyOrdering = mempty `mappend` mempty
 firstGt = GT `mappend` LT
 listOfOrdering = mconcat [EQ, EQ, LT]
+--instance (Monoid a) => Monoid (Maybe a) where
+--    mempty = Nothing
+--    Nothing `mappend` m = m
+--    m `mappend` Nothing = m
+--    Just a `mappend` Just b = Just $ a `mappend` b
+
