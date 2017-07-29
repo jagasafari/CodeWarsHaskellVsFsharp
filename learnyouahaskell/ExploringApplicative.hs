@@ -1,4 +1,5 @@
 module ExploringApplicative where
+import qualified Data.Foldable as F
 import Data.Monoid
 import Control.Applicative
 
@@ -141,4 +142,11 @@ listOfOrdering = mconcat [EQ, EQ, LT]
 --    Nothing `mappend` m = m
 --    m `mappend` Nothing = m
 --    Just a `mappend` Just b = Just $ a `mappend` b
-data Tree a = Empty | Node a (Tree a) (Tree a)
+data Tree a = Empty | Node a (Tree a) (Tree a) deriving (Show, Read, Eq)
+
+--myFoldMap :: (Monoid m, Foldable t) => (a -> m) -> t a -> m
+instance F.Foldable Tree where
+    foldMap f Empty = mempty
+    foldMap f (Node x l r) = F.foldMap f l `mappend`
+                             f x `mappend`
+                             F.foldMap f r
