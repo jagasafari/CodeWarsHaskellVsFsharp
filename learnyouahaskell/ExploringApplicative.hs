@@ -40,16 +40,38 @@ pureTypeMaybe = pure "ghj" :: Maybe String
 --instance Applicative ((->) r) where
 --    pure x = \_ -> x
 --    f <*> g = \x -> f x $ g x
+
 functionAsFunctorAndApplicativeExample =
     (+) <$> (+3) <*> (*100) $ 5
 functionAsFunctorAndApplicativeExampleList =
     (\x y z -> [x, y, z]) <$> (+3) <*> (*5) <*> (/2) $ 5
+
 --instance Applicative ZipList where
 --    pure x = ZipList $ repeat x
 --    ZipList fs <*> ZipList xs = ZipList $ zipWith (\f x -> f x) fs xs
 zipWithApplicativeExample = 
     getZipList $ max <$> ZipList [9,8,0] <*> ZipList [9,9..]
-
 zipListApplicativeExampleTupleConstructor = 
-    getZipList $ (,,) <$> ZipList [8,9..] <*> ZipList [8,9,0] <*> ZipList [9,0,8,9]
-    
+    getZipList 
+        $ (,,) 
+        <$> ZipList [8,9..] <*> ZipList [8,9,0] <*> ZipList [9,0,8,9]
+
+myLiftA2 :: (Applicative f) => (a -> b -> c) -> f a -> f b -> f c
+myLiftA2 f a b = f <$> a <*> b
+liftA2Maybe :: Maybe [Int]
+liftA2Maybe = liftA2 (:) (Just 4) (Just [6])
+sameAsLiftA2 :: Maybe [Int]
+sameAsLiftA2 = (:) <$> Just 6 <*> Just [8]
+
+mySequenceA :: (Applicative f) => [f a] -> f [a]
+mySequenceA [] = pure []
+mySequenceA (x:xs) = (:) <$> x <*> mySequenceA xs
+sequenceAMaybe = sequenceA [Just 6, Just 7, Just 0]
+sequenceAMaybeNothingCase = sequenceA [Just 7, Nothing]
+sequenceANestedArrays = sequenceA [[9,0,8],[9,0,5]]
+
+newtype MyZipListNewtype a = MyZipListNewtype { getMyZipList :: [a] }
+newtype MyCharList = MyCharList { getCharList :: [Char]} deriving (Eq, Show)
+
+
+
