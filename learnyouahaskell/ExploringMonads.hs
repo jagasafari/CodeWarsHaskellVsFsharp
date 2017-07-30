@@ -51,4 +51,7 @@ doNotation = do
     x <- Just 3
     y <- Just "!"
     return $ show x ++ y
+patternMatchingDoNotation = do
+    (x:xs) <- Just [8,9,0]
+    return x
 
