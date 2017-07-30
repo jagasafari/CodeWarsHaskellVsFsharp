@@ -28,3 +28,11 @@ pipeBool = False |> not
 monadIgnoreBothJust = Just 5 >> Just 3
 monadIgnoreLeftNothing = Nothing >> Just 3
 monadIgnoreRightNothing = Just 6 >> Nothing
+
+landLeft n (l, r)
+    | abs (l+n-r) < 4 = Just (l+n,r)
+    | otherwise = Nothing
+landRight n (l,r)
+    | abs (l-(n+r)) < 4 = Just (l,n+r)
+    | otherwise = Nothing
+obvousFailure = landLeft 1 (0,0) >>= landRight 1 >> Nothing >>= landLeft 5
