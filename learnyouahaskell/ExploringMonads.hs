@@ -39,6 +39,8 @@ obvousFailure = landLeft 1 (0,0) >>= landRight 1 >> Nothing >>= landLeft 5
 obviousFailureDoNotation = do
     first <- landLeft 1 (0, 0)
     Nothing
+    -- same as above
+    _ <- Nothing 
     second <- landRight 1 first
     landLeft 5 second
 alinedNestedMonads :: Maybe String 
