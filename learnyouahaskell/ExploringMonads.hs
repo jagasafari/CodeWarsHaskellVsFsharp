@@ -36,3 +36,7 @@ landRight n (l,r)
     | abs (l-(n+r)) < 4 = Just (l,n+r)
     | otherwise = Nothing
 obvousFailure = landLeft 1 (0,0) >>= landRight 1 >> Nothing >>= landLeft 5
+alinedNestedMonads :: Maybe String 
+alinedNestedMonads = Just 3 >>= (\x -> 
+                     Just "!" >>= (\y -> 
+                     Just $ show x ++ y))
