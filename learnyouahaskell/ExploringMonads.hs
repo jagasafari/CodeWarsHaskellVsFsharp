@@ -36,7 +36,15 @@ landRight n (l,r)
     | abs (l-(n+r)) < 4 = Just (l,n+r)
     | otherwise = Nothing
 obvousFailure = landLeft 1 (0,0) >>= landRight 1 >> Nothing >>= landLeft 5
+obviousFailureDoNotation = do
+    first <- landLeft 1 (0, 0)
+    second <- landRight 1 first
+    landLeft 5 second
 alinedNestedMonads :: Maybe String 
 alinedNestedMonads = Just 3 >>= (\x -> 
                      Just "!" >>= (\y -> 
                      Just $ show x ++ y))
+doNotation = do
+    x <- Just 3
+    y <- Just "!"
+    return $ show x ++ y
