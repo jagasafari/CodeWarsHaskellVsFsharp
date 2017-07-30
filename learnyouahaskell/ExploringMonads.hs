@@ -22,3 +22,9 @@ instance MyMonad Maybe where
 returnMonadExample = return 9 :: Maybe Int
 monadMaybe = (Just 5) >>= (\x -> return (x * 9))
 monadMaybeNothing = Nothing >>= (\x -> return (x * 0))
+x |> f = f x
+pipeSum = 5 |> (5+)
+pipeBool = False |> not
+monadIgnoreBothJust = Just 5 >> Just 3
+monadIgnoreLeftNothing = Nothing >> Just 3
+monadIgnoreRightNothing = Just 6 >> Nothing
