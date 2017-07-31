@@ -78,4 +78,6 @@ guardInMonadOperator =
     [1..99] >>= (\x -> C.guard ('7' `elem` show x) >> return x)
 guardInListComprehension = 
     [ x | x <- [1..99], '7' `elem` show x]
-
+myGuard::(C.MonadPlus m) => Bool -> m ()
+myGuard False = C.mzero
+myGuard True = return ()
