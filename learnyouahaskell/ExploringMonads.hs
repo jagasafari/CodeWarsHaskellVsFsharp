@@ -1,4 +1,5 @@
 module ExploringMonad where
+import qualified Control.Monad as C
 
 --(>>=) :: (Monad m) => m a -> (a -> m b) -> m b
 applyMaybe :: Maybe a -> (a -> Maybe b) -> Maybe b
@@ -67,5 +68,5 @@ monadDoNotation = do
     n <- [3,6]
     c <- ['a','b']
     return (n,c)
---allowComputationToContinue = guard (79 > 8) >> return "continue"
---resultOfGuardIsFalse = guard (7 > 9) >> return "this not happen"
+allowComputationToContinue = C.guard (79 > 8) >> return "continue"::[String]
+resultOfGuardIsFalse = C.guard (7 > 9) >> return "this not happen"::[String]
