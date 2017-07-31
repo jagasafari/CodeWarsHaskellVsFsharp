@@ -94,3 +94,5 @@ rightIdentityExample2 = ( [1,2.34] >>= return) == [1,2.34]
 associetivityLaw f g m = ((m >>= f) >>= g) == (m >>= (\x -> f x >>= g))
 (.) :: (a -> b) -> (c -> a) -> (c -> b)
 f . g = \x -> f (g x)
+(.<=>)::(Monad m) => (b -> m c)->(a -> m b)->(a -> m c)
+f .<=> g = (\x -> g x >>= f)
