@@ -87,3 +87,4 @@ class Monad m => MyMonadPlus m where
 instance MyMonadPlus [] where
     mzero = []
     mplus = (++)
+identityLaw f x = (return x >>= f) == (f x)
