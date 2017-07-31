@@ -81,3 +81,6 @@ guardInListComprehension =
 myGuard::(C.MonadPlus m) => Bool -> m ()
 myGuard False = C.mzero
 myGuard True = return ()
+class Monad m => MyMonadPlus m where
+    mzero::m a
+    mplus::m a -> m a -> m a
