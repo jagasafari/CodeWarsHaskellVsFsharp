@@ -7,7 +7,6 @@ applyMaybe Nothing _ = Nothing
 applyMaybe (Just x) f = f x
 bothJust = (Just 6) `applyMaybe` (\x -> Just (+8))
 withNothing = Nothing `applyMaybe` (\x -> Just (++ ":)"))
-
 class MyMonad m where
     myReturn :: a -> m a
     (.>>=) :: m a -> (a -> m b) -> m b
@@ -70,3 +69,13 @@ monadDoNotation = do
     return (n,c)
 allowComputationToContinue = C.guard (79 > 8) >> return "continue"::[String]
 resultOfGuardIsFalse = C.guard (7 > 9) >> return "this not happen"::[String]
+
+guardDoNotation = do
+    x <- [1..99]
+    C.guard ('7' `elem` show x)
+    return x
+guardInMonadOperator =
+    [1..99] >>= (\x -> C.guard ('7' `elem` show x) >> return x)
+guardInListComprehension = 
+    [ x | x <- [1..99], '7' `elem` show x]
+
