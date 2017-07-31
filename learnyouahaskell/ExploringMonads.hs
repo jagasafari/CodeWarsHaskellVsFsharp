@@ -88,3 +88,4 @@ instance MyMonadPlus [] where
     mzero = []
     mplus = (++)
 identityLaw f x = (return x >>= f) == (f x)
+rightIdentityMonadLaw m = (m >>= return) == m
