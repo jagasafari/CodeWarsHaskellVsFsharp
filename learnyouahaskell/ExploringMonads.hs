@@ -54,4 +54,18 @@ doNotation = do
 patternMatchingDoNotation = do
     (x:xs) <- Just [8,9,0]
     return x
+--instance Monad [] where
+--    return x = [x]
+--    xs >>= f = concat $ map f xs
+--    fail _ = []
 
+listComprehenstion = [(n,c) | c <- ['a','b'], n <- [3,6]]
+monadOperator = [3,6] >>= \n ->
+                ['a','b'] >>= \c ->
+                return (n,c)
+monadDoNotation = do
+    n <- [3,6]
+    c <- ['a','b']
+    return (n,c)
+--allowComputationToContinue = guard (79 > 8) >> return "continue"
+--resultOfGuardIsFalse = guard (7 > 9) >> return "this not happen"
