@@ -84,3 +84,6 @@ myGuard True = return ()
 class Monad m => MyMonadPlus m where
     mzero::m a
     mplus::m a -> m a -> m a
+instance MyMonadPlus [] where
+    mzero = []
+    mplus = (++)
