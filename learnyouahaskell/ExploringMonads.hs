@@ -99,3 +99,8 @@ f .<=> g = (\x -> g x >>= f)
 f x = [x,-x]
 g x = [3*x,4*x]
 monadicCompositionExample = f C.<=< g $ 3
+monadicCompositionAssociativity = 
+    left 3 == right 3
+    where
+        left = (f C.<=< g) C.<=< f
+        right = f C.<=< (g C.<=< f)
