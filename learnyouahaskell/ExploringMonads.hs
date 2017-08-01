@@ -107,4 +107,13 @@ monadicCompositionAssociativity =
 compositionAssociativity f g h =    
     ((f . g) . h $ 7) == (f . (g . h) $ 7)
 compositionIdentity f =
-    ((f . id $ 6) == (id . f $ 6) ) == (f 6)
+    (a == b) && (b == c)
+    where
+        a = (f . id $ 6)
+        b = id . f $ 6
+        c = f 6
+monoidicCompositionIdentity f = do
+    a <- f C.<=< return $ 7
+    b <- return C.<=< f $ 7
+    c <- f 7
+    return ((a == b) && (b == c))
