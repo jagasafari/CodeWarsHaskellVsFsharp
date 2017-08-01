@@ -96,3 +96,6 @@ associetivityLaw f g m = ((m >>= f) >>= g) == (m >>= (\x -> f x >>= g))
 f . g = \x -> f (g x)
 (.<=>)::(Monad m) => (b -> m c)->(a -> m b)->(a -> m c)
 f .<=> g = (\x -> g x >>= f)
+f x = [x,-x]
+g x = [3*x,4*x]
+monadicCompositionExample = f C.<=< g $ 3
