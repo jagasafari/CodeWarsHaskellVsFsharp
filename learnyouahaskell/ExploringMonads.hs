@@ -117,3 +117,6 @@ monoidicCompositionIdentity f = do
     b <- return C.<=< f $ 7
     c <- f 7
     return ((a == b) && (b == c))
+myWriter :: (a, String) -> (a -> (b, String)) -> (b, String)
+myWriter (x, oldLog) f =
+    let (z, newLog) = f x in (z, oldLog ++ newLog)
