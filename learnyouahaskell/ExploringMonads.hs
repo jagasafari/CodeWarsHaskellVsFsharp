@@ -1,5 +1,6 @@
 module ExploringMonad where
 import qualified Control.Monad as C
+import Data.Monoid
 
 --(>>=) :: (Monad m) => m a -> (a -> m b) -> m b
 applyMaybe :: Maybe a -> (a -> Maybe b) -> Maybe b
@@ -120,4 +121,9 @@ monoidicCompositionIdentity f = do
 myWriter :: (Monoid m) => (a, m) -> (a -> (b, m)) -> (b, m)
 myWriter (x, oldLog) f =
     let (z, newLog) = f x in (z, oldLog `mappend` newLog)
-
+type Drink = String
+type Price = Sum Int
+addDrink::Drink->(Drink, Price)
+addDrink "water" = ("cold", Sum 45)
+addDrink _ = ("herb", Sum 15)
+accompaningMonoidValue = ("water", Sum 89) `myWriter` addDrink
