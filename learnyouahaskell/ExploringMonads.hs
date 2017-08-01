@@ -106,3 +106,5 @@ monadicCompositionAssociativity =
         right = f C.<=< (g C.<=< f)
 compositionAssociativity f g h =    
     ((f . g) . h $ 7) == (f . (g . h) $ 7)
+compositionIdentity f =
+    ((f . id $ 6) == (id . f $ 6) ) == (f 6)
