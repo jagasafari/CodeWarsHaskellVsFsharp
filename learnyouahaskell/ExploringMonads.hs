@@ -1,6 +1,7 @@
 module ExploringMonad where
 import qualified Control.Monad as C
 import Data.Monoid
+import qualified Control.Monad.Writer as W
 
 --(>>=) :: (Monad m) => m a -> (a -> m b) -> m b
 applyMaybe :: Maybe a -> (a -> Maybe b) -> Maybe b
@@ -127,3 +128,8 @@ addDrink::Drink->(Drink, Price)
 addDrink "water" = ("cold", Sum 45)
 addDrink _ = ("herb", Sum 15)
 accompaningMonoidValue = ("water", Sum 89) `myWriter` addDrink
+monoidInWriterType =
+    W.runWriter ((return 3 :: W.Writer (Product Int) Int))
+logNumber:: Int -> Writer [String] Int
+logNumber x = Writer (x, "got number " ++ show x)
+
