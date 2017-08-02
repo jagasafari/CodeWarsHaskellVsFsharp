@@ -130,6 +130,12 @@ addDrink _ = ("herb", Sum 15)
 accompaningMonoidValue = ("water", Sum 89) `myWriter` addDrink
 monoidInWriterType =
     W.runWriter ((return 3 :: W.Writer (Product Int) Int))
-logNumber:: Int -> Writer [String] Int
-logNumber x = Writer (x, "got number " ++ show x)
+gcd'::Int -> Int -> W.Writer [String] Int
+gcd' a b
+    | b == 0 = do
+        W.tell ["ending with: " ++ show a]
+        return a
+    | otherwise =  do
+        W.tell [show a ++ " mod " ++ show b ++ " = " ++ show (a `mod` b)]
+        gcd' b (a `mod` b)
 
