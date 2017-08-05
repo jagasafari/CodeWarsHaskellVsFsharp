@@ -130,12 +130,73 @@ addDrink _ = ("herb", Sum 15)
 accompaningMonoidValue = ("water", Sum 89) `myWriter` addDrink
 monoidInWriterType =
     W.runWriter ((return 3 :: W.Writer (Product Int) Int))
+tellMod a b =
+    [show a ++ " mod " ++ show b ++ " = " ++ show (a `mod` b)]
 gcd'::Int -> Int -> W.Writer [String] Int
 gcd' a b
     | b == 0 = do
         W.tell ["ending with: " ++ show a]
         return a
     | otherwise =  do
-        W.tell [show a ++ " mod " ++ show b ++ " = " ++ show (a `mod` b)]
+        W.tell $ tellMod a b
         gcd' b (a `mod` b)
-
+efficientVsNotEfficientList a b c d =
+    a++(b++(c++d)) == ((a++b)++c)++d
+gcdNotEfficientListBuilding a b =
+    gcd a b
+    where
+        gcd :: Int -> Int -> W.Writer [String] Int
+        gcd a b 
+            | b == 0 = do
+                W.tell ["gcd is " ++ show a]
+                return a
+            | otherwise = do
+                result <- gcd b $ a `mod` b
+                W.tell $ tellMod a b
+                return result
+diffrenceList = \xs -> [1,2,3] ++ xs
+diffrenceListForEmpty = \xs -> [] ++ xs
+f `myappendOf2DiffLists` g = \xs -> f $ g xs
+newtype MyDiffList a = MyDiffList { getDiffList :: [a] -> [a] }
+toMyDiffList :: [a] -> MyDiffList a
+toMyDiffList xs = MyDiffList (xs++)
+fromMyDiffList:: MyDiffList a -> [a]
+fromMyDiffList (MyDiffList a) = a []
+instance Monoid (MyDiffList a) where
+    mempty = MyDiffList (\xs -> [] ++ xs)
+    (MyDiffList f) `mappend` (MyDiffList g) =
+        MyDiffList (\xs -> f $ g xs)
+gcdWithEfficientListBuilding :: Int -> Int -> W.Writer (MyDiffList String) Int
+gcdWithEfficientListBuilding a b =
+    gcd a b
+    where
+        gcd :: Int -> Int -> W.Writer (MyDiffList String) Int
+        gcd a b         
+            | b == 0 = do
+                W.tell $ toMyDiffList ["result is " ++ show a]
+                return a
+            | otherwise = do
+                result <- gcd b $ a `mod` b
+                W.tell $ toMyDiffList $ tellMod a b 
+                return result
+gcdEfficientWithDiffList =
+    mapM_ putStrLn $ fromMyDiffList $ snd $ W.runWriter $ gcdWithEfficientListBuilding 110 34
+gcdEfficient =
+    mapM_ putStrLn $ snd $ W.runWriter $ gcd' 110 34
+gcdNotEfficident =
+    mapM_ putStrLn $ snd $ W.runWriter $ gcdNotEfficientListBuilding 110 34
+performanceOfWriterWithDiffList::Int -> W.Writer (MyDiffList String) ()
+performanceOfWriterWithDiffList 0 = do
+    W.tell $ toMyDiffList ["finished"]
+performanceOfWriterWithDiffList count = do
+    performanceOfWriterWithDiffList (count - 1)
+    W.tell $ toMyDiffList [show count]
+--instance Monad ((->)r) where
+--    return x = \_ -> x
+--    f >>= g = \w -> g (f w) w
+exampleOfFunctionMonad :: Int -> Int
+exampleOfFunctionMonad = do 
+    a <- (*6)
+    b <- (+8)
+    return $ a + b
+equivalentOfFunctionMonad = (+) <$> (*6) <*> (+8)
